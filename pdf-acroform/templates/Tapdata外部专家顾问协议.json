@@ -1,0 +1,22 @@
+{
+  "fields": [
+    {"name": "甲方联系人",       "type": "text", "page": 1, "rect": [156, 250, 305, 270], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+    {"name": "甲方联系电话",     "type": "text", "page": 1, "rect": [156, 270, 305, 290], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+    {"name": "甲方电子邮箱",     "type": "text", "page": 1, "rect": [142, 292, 330, 312], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+
+    {"name": "乙方姓名",         "type": "text", "page": 1, "rect": [186, 339, 305, 359], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+    {"name": "乙方身份证号",     "type": "text", "page": 1, "rect": [175, 372, 325, 392], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+    {"name": "乙方住所",         "type": "text", "page": 1, "rect": [140, 392, 530, 412], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+    {"name": "乙方联系电话",     "type": "text", "page": 1, "rect": [158, 412, 305, 432], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+    {"name": "乙方电子邮箱",     "type": "text", "page": 1, "rect": [128, 432, 330, 452], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+
+    {"name": "服务时间上限小时", "type": "text", "page": 2, "rect": [260, 186, 282, 213], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+    {"name": "包含上限小时",     "type": "text", "page": 2, "rect": [338, 186, 360, 213], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+
+    {"name": "包月小时数",       "type": "text", "page": 2, "rect": [85, 240, 110, 266], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+    {"name": "包月费元",         "type": "text", "page": 2, "rect": [226, 240, 260, 266], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+    {"name": "解决周期天数",     "type": "text", "page": 2, "rect": [345, 260, 380, 286], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+    {"name": "超时小时数",       "type": "text", "page": 2, "rect": [110, 266, 138, 292], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]},
+    {"name": "超时费率每时",     "type": "text", "page": 2, "rect": [226, 266, 260, 292], "font": "hei", "fontsize": 10, "redact_existing": true, "bg_color": [1, 1, 1]}
+  ]
+}

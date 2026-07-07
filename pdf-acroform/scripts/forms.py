@@ -208,6 +208,7 @@ def cmd_add(args) -> None:
 
     doc = open_pdf(args.input)
     created = []
+    pages_to_redact: set[int] = set()
 
     for spec in fields:
         page_idx = int(spec.get("page", 1)) - 1
@@ -219,6 +220,25 @@ def cmd_add(args) -> None:
         if not (isinstance(rect_list, list) and len(rect_list) == 4):
             die(f"field {spec.get('name')!r} needs rect=[x0,y0,x1,y1]")
         rect = fitz.Rect(*rect_list)
+
+        # Optional: cover any inline text at this rect. Two modes:
+        #   cover_existing: true/false  — just draw a white-filled rectangle (overlay).
+        #                                  May leak tiny bits of text in some PDF renderers.
+        #   redact_existing: true/false — use PyMuPDF redact (more aggressive;
+        #                                  actually removes the underlying text and replaces
+        #                                  with white). Use this for typst/法大大 exports
+        #                                  where the source had inline values that must vanish.
+        if spec.get("cover_existing"):
+            try:
+                page.draw_rect(rect, fill=(1, 1, 1), color=(1, 1, 1), overlay=True)
+            except Exception:
+                pass
+        if spec.get("redact_existing"):
+            try:
+                page.add_redact_annot(rect, fill=(1, 1, 1))
+                pages_to_redact.add(page_idx)
+            except Exception:
+                pass
 
         ftype = (spec.get("type") or "text").lower()
         font_alias = spec.get("font")
@@ -289,6 +309,13 @@ def cmd_add(args) -> None:
                             "type": ftype, "rect": rect_list})
         except Exception as e:
             die(f"add_widget failed for {spec.get('name')!r}: {e}")
+
+    # Apply redactions AFTER all widgets are added on the marked pages.
+    for pi in sorted(pages_to_redact):
+        try:
+            doc[pi].apply_redactions()
+        except Exception as e:
+            emit({"ok": False, "warning": f"apply_redactions p{pi+1}: {e}"})
 
     save_pdf(doc, args.output)
     emit({"ok": True, "output": args.output, "created": created})
