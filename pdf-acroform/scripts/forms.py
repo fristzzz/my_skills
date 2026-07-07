@@ -421,12 +421,15 @@ def cmd_remove(args) -> None:
         # iterate by index; delete_widget invalidates the underlying list
         widgets = list(page.widgets() or [])
         for w in widgets:
-            if w.field_name in targets:
-                try:
-                    page.delete_widget(w)
-                    removed.append({"page": pi + 1, "name": w.field_name})
-                except Exception as e:
-                    missing.append({"name": w.field_name, "error": str(e)})
+            # Tolerate PyMuPDF API drift across versions
+            wname = getattr(w, "field_name", None)
+            if wname is None or wname not in targets:
+                continue
+            try:
+                page.delete_widget(w)
+                removed.append({"page": pi + 1, "name": wname})
+            except Exception as e:
+                missing.append({"name": wname, "error": str(e)})
     for nm in targets:
         if not any(r["name"] == nm for r in removed):
             missing.append(nm)
